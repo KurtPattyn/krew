@@ -1,5 +1,6 @@
 benchmarks/
 test/
 node_modules/
+examples/
 docs/
 coverage/

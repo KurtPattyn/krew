@@ -3,6 +3,18 @@
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
+  "keywords": [
+    "microservices",
+    "12factor",
+    "servicebus"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KurtPattyn/krew.git"
+  },
+  "engines": [
+    "node >=0.11.0"
+  ],
   "dependencies": {
     "kimbu": "0.x"
   },
@@ -23,6 +35,13 @@
     "check-style": "./node_modules/jscs/bin/jscs .",
     "code-analysis": "./node_modules/jshint/bin/jshint ."
   },
-  "author": "Kurt Pattyn",
-  "license": "MIT"
+  "author": {
+    "name": "Kurt Pattyn",
+    "email": "pattyn.kurt@gmail.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/KurtPattyn/krew/issues"
+  },
+  "homepage": "https://github.com/KurtPattyn/krew"
 }
