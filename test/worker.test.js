@@ -65,6 +65,49 @@ describe("Worker", function() {
       rmq.disconnect();
       done();
     });
+  });
+
+  describe(".start", function() {
+    it("should not throw an error when no callback is provided", function(done) {
+      var rmq = new (Transport.providers.RabbitMQTransport)();
+      var w1 = new Worker("someworker", rmq, {
+        "msg": function(parameters, next) { next(); }
+      });
+
+      w1.on("ready", function() {
+        w1.stop();
+        done();
+      });
+      assert.doesNotThrow(function() {
+        w1.start();
+      }, "Should not throw any exception");
+    });
+
+    it("should throw an error when an invalid callback is provided", function(done) {
+      var rmq = new (Transport.providers.RabbitMQTransport)();
+      var w1 = new Worker("someworker", rmq, {
+        "msg": function(parameters, next) { next(); }
+      });
+
+      assert.throws(function() {
+        w1.start("invalid callback");
+      }, /AssertionError/,
+      "Should throw an AssertionError");
+
+      done();
+    });
+
+    it("should call the callback when started or on error", function(done) {
+      var rmq = new (Transport.providers.RabbitMQTransport)();
+      var w1 = new Worker("someworker", rmq, {
+        "msg": function(parameters, next) { next(); }
+      });
+
+      w1.start(function(err) {
+        w1.stop();
+        done();
+      });
+    });
 
     it("should emit ready or error", function (done) {
       var rmq = new (Transport.providers.RabbitMQTransport)();
@@ -79,6 +122,7 @@ describe("Worker", function() {
         rmq.disconnect();
         done();
       });
+      w.start();
     });
 
     it("should deliver the registered message names to the given methods", function (done) {
@@ -99,6 +143,7 @@ describe("Worker", function() {
           assert(util.isNullOrUndefined(err));
         });
       });
+      w.start();
     });
   });
 
@@ -123,6 +168,8 @@ describe("Worker", function() {
       w1.on("error", function(err) {
         console.error("Error occurred", err);
       });
+
+      w1.start();
     });
 
     it("should publish the event to all registered methods", function(done) {
@@ -150,6 +197,9 @@ describe("Worker", function() {
           assert(util.isNullOrUndefined(err));
         });
       });
+
+      w2.start();
+      w1.start();
     });
   });
 
@@ -175,6 +225,8 @@ describe("Worker", function() {
       w1.on("error", function(err) {
         console.error("Error occurred", err);
       });
+
+      w1.start();
     });
 
     it("should publish the command to all of the different workers", function(done) {
@@ -205,6 +257,9 @@ describe("Worker", function() {
             done();
           }, 0);
         });
+      });
+      w2.start(function(err) {
+        w1.start();
       });
     });
 
@@ -242,14 +297,17 @@ describe("Worker", function() {
             assert.equal(reply, "another msg body!");
 
             setTimeout(function () {
-              assert.equal(numMessagesReceivedByWorker1, 1);
-              assert.equal(numMessagesReceivedByWorker2, 1);
+              assert.equal(numMessagesReceivedByWorker1, 1, "Worker1 should receive exactly 1 message");
+              assert.equal(numMessagesReceivedByWorker2, 1, "Worker2 should receive exactly 1 message");
               w1.stop();
               w2.stop();
               done();
             }, 0);
           });
         });
+      });
+      w2.start(function(err) {
+        w1.start();
       });
     });
   });
