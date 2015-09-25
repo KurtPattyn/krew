@@ -46,3 +46,5 @@ worker.on("ready", function() {
 worker.on("error", function(err) {
   console.error("Worker encountered error:", err);
 });
+
+worker.start();
