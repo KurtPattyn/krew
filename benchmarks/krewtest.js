@@ -41,13 +41,14 @@ function somethingHappened(parameters, next) {
   next();
 }
 
-var min = 0;
+var min = 100000;
 var max = 0;
 var total = 0;
 
 function calc(count) {
   var tm = process.hrtime();
   worker.request("calculator.multiply", [1, 2, 3, 4, 5, 6], {}, function(err, reply) {
+    if (err) console.error(err);
     var diff = process.hrtime(tm);
     var diffms = (diff[0] * 1e9 + diff[1]) / 1000 / 1000;
     total += diffms;
