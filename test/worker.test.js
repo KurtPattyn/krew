@@ -103,7 +103,7 @@ describe("Worker", function() {
         "msg": function(parameters, next) { next(); }
       });
 
-      w1.start(function(err) {
+      w1.start(function(/* err */) {
         w1.stop();
         done();
       });
@@ -259,6 +259,7 @@ describe("Worker", function() {
         });
       });
       w2.start(function(err) {
+        assert(util.isNullOrUndefined(err));
         w1.start();
       });
     });
@@ -307,6 +308,7 @@ describe("Worker", function() {
         });
       });
       w2.start(function(err) {
+        assert(util.isNullOrUndefined(err));
         w1.start();
       });
     });
