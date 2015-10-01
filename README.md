@@ -34,6 +34,10 @@ $ npm install krew --production
 ```
 for a production only installation (no tests, documentation, ...).
 
+## Supported Node Versions
+`Krew` supports `Node` versions 0.12 and later.  
+ To use `Krew` with `Node` versions < 4.0, you must start `node` with the `--harmony` flag.
+
 ## Usage
 ``` javascript
   var Worker = require("krew").Worker;
