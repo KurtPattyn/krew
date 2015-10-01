@@ -12,12 +12,6 @@ logger.setOptions({
 
 var RabbitMQTransport = Transport.providers.RabbitMQTransport;
 
-var worker = new Worker("myWorker", new RabbitMQTransport(), {
-  "calculator.add": calculatorAdd,
-  "calculator.multiply": calculatorMultiply,
-  "something.happened": somethingHappened
-});
-
 function calculatorAdd(parameters, next) {
   console.log("Received calculator.add with parameters", parameters);
   var result = parameters.reduce(function(previousValue, currentValue, index, array) {
@@ -41,6 +35,12 @@ function somethingHappened(parameters, next) {
   next();
 }
 
+var worker = new Worker("myWorker", new RabbitMQTransport(), {
+  "calculator.add": calculatorAdd,
+  "calculator.multiply": calculatorMultiply,
+  "something.happened": somethingHappened
+});
+
 var min = 100000;
 var max = 0;
 var total = 0;
@@ -48,12 +48,18 @@ var total = 0;
 function calc(count) {
   var tm = process.hrtime();
   worker.request("calculator.multiply", [1, 2, 3, 4, 5, 6], {}, function(err, reply) {
-    if (err) console.error(err);
+    if (err) {
+      console.error(err);
+    }
     var diff = process.hrtime(tm);
     var diffms = (diff[0] * 1e9 + diff[1]) / 1000 / 1000;
     total += diffms;
-    if (diffms < min) min = diffms;
-    if (diffms > max) max = diffms;
+    if (diffms < min) {
+      min = diffms;
+    }
+    if (diffms > max) {
+      max = diffms;
+    }
     if (++count < 1000) {
       setTimeout(calc.bind(null, count), 0);
     } else {
