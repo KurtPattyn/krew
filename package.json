@@ -1,6 +1,6 @@
 {
   "name": "krew",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Minimalistic and flexible framework to implement microservice-like workers",
   "main": "index.js",
   "keywords": [
