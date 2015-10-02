@@ -63,7 +63,7 @@ function calc(count) {
     if (++count < 1000) {
       setTimeout(calc.bind(null, count), 0);
     } else {
-      console.warn("Timings: min: %d ms, max: %d ms, avg: %d ms", min, max, total/count);
+      console.warn("Timings: min: %d ms, max: %d ms, avg: %d ms (%d msgs/s)", min, max, total / count, 1000 / (total / count));
       setTimeout(process.exit.bind(null, 0), 0);
     }
   });
