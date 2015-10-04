@@ -95,6 +95,10 @@ To quickly test if the above example works, the worker can send messages to itse
 ## Examples
 Examples can be found under the `examples` subdirectory.
 
+## Quick Start
+To quickly generate a worker, you can use the [Krew Yeoman Generator][generator-krew-url].  
+This generator sets up a new worker, generating all the boilerplate you need to get started.
+
 ## API
 ### new Worker(workerName, transport, messageHash)
 Creates a new worker with the given *workerName*.  
@@ -302,4 +306,5 @@ will run `jsdoc` to create documentation.
 [kimbu-url]: https://www.npmjs.com/package/krew
 [license-image]: http://img.shields.io/badge/license-MIT-blue.svg?style=flat
 [license-url]: LICENSE
-
+[generator-krew-url]: https://www.npmjs.com/package/generator-krew
+[yeoman-logo-url]: http://yeoman.io/static/mustache.d62b915ab6.svg
