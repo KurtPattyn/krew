@@ -59,7 +59,7 @@ for a production only installation (no tests, documentation, ...).
     next();
   }
 
-  var worker = new Worker("myWorker", rmq, 
+  var worker = new Worker("myWorker", rmq, {
     "calculator.multiply": calculatorMultiply,
     "something.happened": somethingHappened
   });
