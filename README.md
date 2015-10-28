@@ -303,7 +303,7 @@ will run `jsdoc` to create documentation.
 [david-url]: https://david-dm.org/kurtpattyn/krew
 [david-dev-image]: https://david-dm.org/kurtpattyn/krew/dev-status.svg
 [david-dev-url]: https://david-dm.org/kurtpattyn/krew#info=devDependencies
-[kimbu-url]: https://www.npmjs.com/package/krew
+[kimbu-url]: https://www.npmjs.com/package/kimbu
 [license-image]: http://img.shields.io/badge/license-MIT-blue.svg?style=flat
 [license-url]: LICENSE
 [generator-krew-url]: https://www.npmjs.com/package/generator-krew
